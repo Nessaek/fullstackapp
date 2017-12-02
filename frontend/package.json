@@ -1,0 +1,22 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-modal": "^3.1.5",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17",
+    "react-validation": "^3.0.7",
+    "semantic-ui": "^2.2.13",
+    "serve": "^6.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:8000"
+}
