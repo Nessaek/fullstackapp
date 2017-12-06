@@ -8,6 +8,8 @@ class ViewLessons extends Component {
 
   constructor(props) {
       super(props);
+      //mobx stuff
+      mobx.autorun(() => console.log(this.componentDidMount));
       this.state =  {
             legoParts: [],
             modalIsOpen: false,

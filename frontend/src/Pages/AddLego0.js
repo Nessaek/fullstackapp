@@ -3,22 +3,18 @@ import {observer} from 'mobx-react';
 import React, {Component} from 'react';
 import postService from './../services/postService';
 
+
 @observer
-var appState = observable({
-    legoParts : []
-});
-
-
 class AddLego extends Component  {
 
+  @observable
+  legoParts = [];
   constructor(props) {
       super(props);
-      this.state = {
-        legoParts : []
-      };
 
     }
 
+@action
   onChange = (e) => {
     const state = this.state;
     state[e.target.name] =  e.target.value;
