@@ -1,58 +1,69 @@
-import {observable} from 'mobx';
-import {observer} from 'mobx-react';
-import React, {Component} from 'react';
-import postService from './../services/postService';
+import { inject, observer } from "mobx-react";
+import { toJS } from "mobx";
+import React, { Component } from "react";
+import moment from "moment";
+import Datetime from "react-datetime";
+import postService from "./../services/postService";
+import convertTimestamp from "./../services/convertTimeStamp";
 
-@observer
-var appState = observable({
-    legoParts : []
-});
-
-
-class AddLego extends Component  {
-
-  constructor(props) {
-      super(props);
-      this.state = {
-        legoParts : []
-      };
-
-    }
-
-  onChange = (e) => {
-    const state = this.state;
-    state[e.target.name] =  e.target.value;
-    this.setState(state);
-  }
-
-  onSubmit = (e) => {
-    e.preventDefault();
-    // get our form data out of state
-    const { piece, type } = this.state;
-    postService.postLego(piece,type);
-  }
-
-
+class AddLego extends Component {
   render() {
+    const { store } = this.props;
     return (
-        <div>
-         <h4>Add a Lego Piece</h4>
-         <form onSubmit={this.onSubmit}>
-        <label>
-        Piece:
-        <input type="text" name="piece" id="piece" onChange={this.onChange}/>
-        </label>
-        <br></br>
-        <label>
-        Type:
-        <input type="text" name="type" id="type" onChange={this.onChange}/>
-        </label>
-        <input type="submit" value="Submit"/>
+      <div>
+        <h4>Add a Lego Piece</h4>
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            store.fetchLegoParts();
+          }}
+        >
+          <label>
+            startDate:
+            <Datetime
+              type="date"
+              value={store.startDate}
+              id="startDate"
+              onChange={e => store.addLego("startDate", e)}
+            />
+          </label>
+          <label>
+            EndDate:
+            <Datetime
+              type="date"
+              value={store.endDate}
+              id="endDate"
+              onChange={e => {
+                console.log(e);
+                store.addLego("endDate", e);
+              }}
+            />
+          </label>
+          <br />
+          <label>
+            Piece:
+            <input
+              type="text"
+              value={store.piece}
+              id="piece"
+              onChange={e => store.addLego("piece", e.target.value)}
+            />
+          </label>
+          <br />
+          <label>
+            Type:
+            <input
+              type="text"
+              value={store.type}
+              id="type"
+              onChange={e => store.addLego("type", e.target.value)}
+            />
+          </label>
+          <input type="submit" value="Submit" />
         </form>
-        </div>
+      </div>
     );
   }
-
 }
 
-export default AddLego;
+export default inject("store")(observer(AddLego));

@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
+import NavBar from './Components/NavBar'
 import AddLego from './Pages/AddLego'
-import ViewLessons from './Pages/ViewLessons'
+import ViewLegos from './Pages/ViewLegos'
 import {BrowserRouter, Route} from 'react-router-dom';
 
 
 class App extends Component {
   render() {
     return (
+    <div>
+      <NavBar/>
       <BrowserRouter>
         <div>
-            <Route path="/viewlessons" component={ViewLessons}/>
+            <Route path="/viewlegos" component={ViewLegos}/>
             <Route path="/AddLego" component={AddLego}/>
         </div>
       </BrowserRouter>
+    </div>
     );
   }
 }
